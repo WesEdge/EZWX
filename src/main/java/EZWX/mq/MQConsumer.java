@@ -46,5 +46,4 @@ public abstract class MQConsumer {
         Logger.log("RabbitMQ [*] " + msg);
     }
 
-
 }
