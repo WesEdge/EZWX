@@ -24,7 +24,7 @@ public abstract class MQSender {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare(args.getQueueName(), false, false, false, null);
-        channel.basicPublish("", args.getQueueName(), null, args.getMessageBytes());
+        channel.basicPublish("", args.getQueueName(), null, args.getBytes());
 
         channel.close();
         connection.close();

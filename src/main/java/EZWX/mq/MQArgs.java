@@ -8,12 +8,17 @@ public class MQArgs  {
     private String _queueName;
     private String _message;
     private URL _url;
+    private byte[] _bytes;
 
     public MQArgs(){
     }
 
     public MQArgs(String message){
         this._message = message;
+    }
+
+    public MQArgs(byte[] bytes){
+        this._bytes = bytes;
     }
 
     public void setQueueHost(String queueHost){
@@ -36,8 +41,11 @@ public class MQArgs  {
     public String getMessage() {
         return this._message;
     }
-    public byte[] getMessageBytes() {
-        return this._message.getBytes();
+    public byte[] getBytes() {
+        return this._bytes;
+    }
+    public void setBytes(byte[] bytes) {
+        this._bytes = bytes;
     }
 
     public void setUrl(String url) throws java.net.MalformedURLException  {

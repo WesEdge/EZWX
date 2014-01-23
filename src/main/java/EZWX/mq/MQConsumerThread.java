@@ -6,18 +6,18 @@ public class MQConsumerThread implements Runnable {
 
     private MQActor _actor;
     private MQConsumer _consumer;
-    private String _message;
+    private byte[] _bytes;
 
-    MQConsumerThread(MQConsumer consumer, MQActor actor, String message) {
+    MQConsumerThread(MQConsumer consumer, MQActor actor, byte[] bytes) {
         _consumer = consumer;
         _actor = actor;
-        _message = message;
+        _bytes = bytes;
     }
 
     public void run() {
 
         try {
-            _consumer.consume(_actor, _message);
+            _consumer.consume(_actor, _bytes);
         } catch (Exception ex) {
             Thread t = Thread.currentThread();
             t.getUncaughtExceptionHandler().uncaughtException(t, ex);
@@ -25,8 +25,8 @@ public class MQConsumerThread implements Runnable {
 
     }
 
-    public static void start(MQConsumer consumer, MQActor actor, String message) throws Exception{
-        Thread t = new Thread(new MQConsumerThread(consumer, actor, message));
+    public static void start(MQConsumer consumer, MQActor actor, byte[] bytes) throws Exception{
+        Thread t = new Thread(new MQConsumerThread(consumer, actor, bytes));
         t.start();
     }
 

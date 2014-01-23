@@ -7,6 +7,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.QueueingConsumer;
 import EZWX.interfaces.MQActor;
+import EZWX.mq.MQConsumerThread;
 
 public abstract class MQConsumer {
 
@@ -32,15 +33,19 @@ public abstract class MQConsumer {
         while (true) {
 
             QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-            String message = new String(delivery.getBody());
-            log("Received '" + message + "'");
-            MQConsumerThread.start(this, mqActor, message);
+            byte[] bytes = delivery.getBody();
+            log("Received Queue Message");
+
+            //MQConsumerThread.start(this, mqActor, bytes);
+
+            Thread t = new Thread(new MQConsumerThread(this, mqActor, bytes));
+            t.start();
 
         }
 
     }
 
-    abstract protected void consume(MQActor mqActor, String message) throws Exception;
+    abstract protected void consume(MQActor mqActor, byte[] bytes) throws Exception;
 
     private void log(String msg){
         Logger.log("RabbitMQ [*] " + msg);

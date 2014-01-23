@@ -8,9 +8,9 @@ public class MQPersistanceConsumer extends MQConsumer {
         super(actor);
     }
 
-    protected void consume(MQActor actor, String message) throws Exception{
-        MQArgs args = new MQArgs(message);
-        args.setUrl(message);
+    protected void consume(MQActor actor, byte[] bytes) throws Exception{
+        MQArgs args = new MQArgs(bytes);
+        args.setBytes(bytes);
         actor.execute(args);
     }
 
