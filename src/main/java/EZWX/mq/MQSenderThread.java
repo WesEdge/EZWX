@@ -11,8 +11,8 @@ public class MQSenderThread implements Runnable {
     public void run() {
 
         try {
-            MQArgs message = _sender.getMessage();
-            _sender.send(message);
+            MQArgs args = _sender.getMQArgs();
+            _sender.send(args);
         } catch (Exception ex) {
             Thread t = Thread.currentThread();
             t.getUncaughtExceptionHandler().uncaughtException(t, ex);

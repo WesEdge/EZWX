@@ -24,14 +24,14 @@ public abstract class MQSender {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare(args.getQueueName(), false, false, false, null);
-        channel.basicPublish("", args.getQueueName(), null, args.getBytes());
+        channel.basicPublish("", args.getQueueName(), null, args.serialize());
 
         channel.close();
         connection.close();
 
     }
 
-    abstract protected MQArgs getMessage() throws Exception;
+    abstract protected MQArgs getMQArgs() throws Exception;
 
     private void log(String msg){
         Logger.log(msg);

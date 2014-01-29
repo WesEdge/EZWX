@@ -1,5 +1,6 @@
 package EZWX.mq;
 
+import EZWX.core.Serializer;
 import EZWX.interfaces.MQActor;
 
 public class MQIngestConsumer extends MQConsumer {
@@ -8,8 +9,7 @@ public class MQIngestConsumer extends MQConsumer {
         super(actor);
     }
 
-    protected void consume(MQActor actor, byte[] bytes) throws Exception{
-        MQArgs args = new MQArgs(bytes);
+    protected void consume(MQActor actor, MQArgs args) throws Exception{
         actor.execute(args);
     }
 
